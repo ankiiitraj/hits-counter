@@ -41,8 +41,11 @@ app.get('/', async (req, res) => {
 })
 
 app.get('/hit', async (req, res) => {
-    await redis.incr("hits")
-    console.log(`hit added`);
+    const hitsCount = parseInt(req.query.by) || 1;
+    
+    await redis.incrby("hits", hitsCount)
+    
+    console.log(`hit added, incremented by ${hitsCount}`);
     res.sendStatus(200)
 })
 
