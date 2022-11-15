@@ -6,7 +6,9 @@ const port = process.env.PORT || 5000
 const path = require("path")
 const Redis = require('ioredis');
 
-require('dotenv').config();
+if(process.env.NODE_ENV === "dev") {
+    require('dotenv').config();
+}
 
 
 function createHitsImg(hits) {
@@ -58,5 +60,5 @@ app.get('/hitsImg', async (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`app listening on port ${port}`)
+  console.log(`app listening on port ${port} and env ${process.env.NODE_ENV}`)
 })
